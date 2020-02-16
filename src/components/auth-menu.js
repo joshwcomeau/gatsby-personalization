@@ -9,7 +9,6 @@ import {
 
 import UnstyledButton from './unstyled-button';
 import MenuIcon from './menu-icon';
-import ClientOnly from './client-only';
 
 const AuthMenu = () => {
   const [user, setUser] = React.useState(
@@ -17,30 +16,13 @@ const AuthMenu = () => {
   );
 
   return (
-    <ClientOnly>
+    <>
       {user ? (
         <LoggedInMenu user={user} />
       ) : (
         <LoginLink setUser={setUser} />
       )}
-    </ClientOnly>
-  );
-
-  if (!user) {
-    return <LoginLink />;
-  }
-
-  return (
-    <Wrapper>
-      <Avatar
-        src={user.avatar}
-        alt={`${user.displayName}'s avatar`}
-      />
-      <DisplayName>
-        {user.displayName}
-      </DisplayName>
-      <MenuIcon />
-    </Wrapper>
+    </>
   );
 };
 
