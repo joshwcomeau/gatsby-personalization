@@ -1,35 +1,70 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { getUserInfo, persistUserInfo, FAKE_USER } from '../auth.helpers';
+import {
+  getUserInfo,
+  persistUserInfo,
+  FAKE_USER,
+} from '../auth.helpers';
 
 import UnstyledButton from './unstyled-button';
 import MenuIcon from './menu-icon';
+import ClientOnly from './client-only';
 
 const AuthMenu = () => {
-  const [user, setUser] = React.useState(getUserInfo());
+  const [user, setUser] = React.useState(
+    getUserInfo()
+  );
+
+  return (
+    <ClientOnly>
+      {user ? (
+        <LoggedInMenu user={user} />
+      ) : (
+        <LoginLink setUser={setUser} />
+      )}
+    </ClientOnly>
+  );
 
   if (!user) {
-    return (
-      <Wrapper
-        onClick={() => {
-          setUser(FAKE_USER);
-          persistUserInfo(FAKE_USER);
-        }}
-      >
-        Log in
-      </Wrapper>
-    );
+    return <LoginLink />;
   }
 
   return (
     <Wrapper>
-      <Avatar src={user.avatar} alt={`${user.displayName}'s avatar`} />
-      <DisplayName>{user.displayName}</DisplayName>
+      <Avatar
+        src={user.avatar}
+        alt={`${user.displayName}'s avatar`}
+      />
+      <DisplayName>
+        {user.displayName}
+      </DisplayName>
       <MenuIcon />
     </Wrapper>
   );
 };
+
+const LoginLink = ({ setUser }) => (
+  <Wrapper
+    onClick={() => {
+      setUser(FAKE_USER);
+      persistUserInfo(FAKE_USER);
+    }}
+  >
+    Log in
+  </Wrapper>
+);
+
+const LoggedInMenu = ({ user }) => (
+  <Wrapper>
+    <Avatar
+      src={user.avatar}
+      alt={`${user.displayName}'s avatar`}
+    />
+    <DisplayName>{user.displayName}</DisplayName>
+    <MenuIcon />
+  </Wrapper>
+);
 
 const Wrapper = styled(UnstyledButton)`
   display: flex;
