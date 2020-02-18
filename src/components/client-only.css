@@ -8,4 +8,5 @@
 }
 
 .client-only {
+  animation: fadeIn 300ms;
 }
