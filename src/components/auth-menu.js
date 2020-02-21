@@ -3,27 +3,30 @@ import styled from 'styled-components';
 
 import {
   getUserInfo,
-  persistUserInfo,
   FAKE_USER,
 } from '../auth.helpers';
+import usePersistedState from '../hooks/use-persisted-state.hook';
 
 import UnstyledButton from './unstyled-button';
 import MenuIcon from './menu-icon';
 import ClientOnly from './client-only';
 
 const AuthMenu = () => {
-  const [user, setUser] = React.useState(
+  const [user, setUser] = usePersistedState(
     getUserInfo()
   );
 
   return (
-    <ClientOnly>
+    <>
       {user ? (
-        <LoggedInMenu user={user} />
+        <LoggedInMenu
+          user={user}
+          setUser={setUser}
+        />
       ) : (
         <LoginLink setUser={setUser} />
       )}
-    </ClientOnly>
+    </>
   );
 };
 
@@ -31,15 +34,14 @@ const LoginLink = ({ setUser }) => (
   <Wrapper
     onClick={() => {
       setUser(FAKE_USER);
-      persistUserInfo(FAKE_USER);
     }}
   >
     Log in
   </Wrapper>
 );
 
-const LoggedInMenu = ({ user }) => (
-  <Wrapper>
+const LoggedInMenu = ({ user, setUser }) => (
+  <Wrapper onClick={() => setUser(null)}>
     <Avatar
       src={user.avatar}
       alt={`${user.displayName}'s avatar`}
