@@ -12,21 +12,14 @@ import UnstyledButton from './unstyled-button';
 import MenuIcon from './menu-icon';
 import ClientOnly from './client-only';
 
-const isBeingPrebuilt =
-  typeof window === 'undefined';
-
 const AuthMenu = () => {
   const [user, setUser] = usePersistedState(
     LOCAL_STORAGE_KEY,
     getUserInfo()
   );
 
-  if (isBeingPrebuilt) {
-    return null;
-  }
-
   return (
-    <>
+    <ClientOnly>
       {user ? (
         <LoggedInMenu
           user={user}
@@ -35,7 +28,7 @@ const AuthMenu = () => {
       ) : (
         <LoginLink setUser={setUser} />
       )}
-    </>
+    </ClientOnly>
   );
 };
 
