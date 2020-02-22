@@ -1,8 +1,9 @@
 import joshAvatar from './images/josh-avatar.png';
 
-const isBeingPrebuilt = typeof window === 'undefined';
+const isBeingPrebuilt =
+  typeof window === 'undefined';
 
-const LOCAL_STORAGE_KEY = 'user-info';
+export const LOCAL_STORAGE_KEY = 'user-info';
 
 export const FAKE_USER = {
   displayName: 'Josh C',
@@ -14,7 +15,9 @@ export const getUserInfo = () => {
     return null;
   }
 
-  const persistedData = window.localStorage.getItem(LOCAL_STORAGE_KEY);
+  const persistedData = window.localStorage.getItem(
+    LOCAL_STORAGE_KEY
+  );
 
   if (!persistedData) {
     return null;
@@ -24,5 +27,8 @@ export const getUserInfo = () => {
 };
 
 export const persistUserInfo = user => {
-  window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(user));
+  window.localStorage.setItem(
+    LOCAL_STORAGE_KEY,
+    JSON.stringify(user)
+  );
 };

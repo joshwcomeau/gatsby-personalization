@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import {
   getUserInfo,
   FAKE_USER,
+  LOCAL_STORAGE_KEY,
 } from '../auth.helpers';
 import usePersistedState from '../hooks/use-persisted-state.hook';
 
@@ -13,6 +14,7 @@ import ClientOnly from './client-only';
 
 const AuthMenu = () => {
   const [user, setUser] = usePersistedState(
+    LOCAL_STORAGE_KEY,
     getUserInfo()
   );
 
