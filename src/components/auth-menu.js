@@ -57,6 +57,7 @@ const Wrapper = styled(UnstyledButton)`
   display: flex;
   align-items: center;
   color: white;
+  width: 128px;
 `;
 
 const Avatar = styled.img`
