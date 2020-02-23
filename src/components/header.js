@@ -3,6 +3,21 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import AuthMenu from './auth-menu';
+import styled from 'styled-components';
+
+const Nav = styled.nav`
+  display: flex;
+  align-items: center;
+`;
+
+const NavLink = styled(Link)`
+  color: white;
+  text-decoration: none;
+`;
+
+const Spacer = styled.div`
+  width: ${props => props.size}px;
+`;
 
 const Header = ({ siteTitle }) => (
   <header
@@ -32,8 +47,13 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
-
-      <AuthMenu />
+      <Nav>
+        <NavLink to="/">Store</NavLink>
+        <Spacer size={32} />
+        <NavLink to="/">About</NavLink>
+        <Spacer size={32} />
+        <AuthMenu />
+      </Nav>
     </div>
   </header>
 );
