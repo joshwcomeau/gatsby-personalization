@@ -1,9 +1,20 @@
 import React from 'react';
 
 const ClientOnly = ({ children }) => {
-  return (
-    <div className="client-only">{children}</div>
-  );
+  const [
+    hasMounted,
+    setHasMounted,
+  ] = React.useState(false);
+
+  React.useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
+
+  return children;
 };
 
 export default ClientOnly;

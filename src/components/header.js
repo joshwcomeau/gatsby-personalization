@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 
 import AuthMenu from './auth-menu';
+import ClientOnly from './client-only';
 
 const Header = ({ siteTitle }) => (
   <header
@@ -32,8 +33,9 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
-
-      <AuthMenu />
+      <ClientOnly>
+        <AuthMenu />
+      </ClientOnly>
     </div>
   </header>
 );

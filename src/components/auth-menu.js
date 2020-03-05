@@ -11,9 +11,22 @@ import UnstyledButton from './unstyled-button';
 import MenuIcon from './menu-icon';
 
 const AuthMenu = () => {
+  const [
+    hasMounted,
+    setHasMounted,
+  ] = React.useState(false);
+
   const [user, setUser] = React.useState(
     getUserInfo()
   );
+
+  React.useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted) {
+    return null;
+  }
 
   return (
     <>
